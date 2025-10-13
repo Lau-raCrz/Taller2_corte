@@ -1,17 +1,16 @@
 # Taller2
 
----
-
-##  Objetivo del laboratorio
-
-El objetivo de este laboratorio fue implementar y ejecutar un robot TurtleBot3 con sensor LIDAR dentro de un contenedor Docker, utilizando ROS Noetic y el paquete gmapping para realizar SLAM (Simultaneous Localization and Mapping) en tiempo real.  
-El sistema debía mostrar el entorno simulado en Gazebo, construir el mapa en RViz, y permitir el control manual del robot mediante teleoperación desde el teclado.
 
 ---
 
 ##  Ejecución del despliegue de drones
 
-Para construir el entorno, se utilizó una imagen base con ROS Noetic, sobre la cual se instalaron los paquetes necesarios para TurtleBot3, simulaciones y SLAM.
+
+En este punto se busca ejecutar una simulación de varios drones utilizando el simulador físico PyBullet, dentro de un entorno aislado creado con Docker. La práctica se basa en el repositorio gym-pybullet-drones, que permite modelar y visualizar el vuelo coordinado de múltiples drones en un entorno 3D.
+
+## Objetivo:
+Desarrollar y ejecutar un contenedor Docker que despliegue la simulación de drones con PyBullet, asegurando que los modelos puedan volar, interactuar con el entorno y visualizarse correctamente en una interfaz gráfica.
+
 
 ### Dockerfile base
 ```
@@ -61,9 +60,12 @@ sudo docker run --rm -it \
 
 ##  Ejecución del despliegue de Baxter
 
+Este punto se enfoca en la simulación del robot colaborativo Baxter mediante la biblioteca PyBullet, que permite modelar sus articulaciones, movimientos y cinemática inversa. La práctica se implementa también dentro de un contenedor Docker para garantizar la portabilidad y el control del entorno de ejecución.
+
+## Objetivo:
+Simular el robot Baxter usando PyBullet y desplegarlo en un contenedor Docker, comprendiendo su funcionamiento, estructura y la aplicación de técnicas de control mediante el script baxter_ik_demo.py.
+
 ### Dockerfile base
-
-
 
 ```
 FROM python:3.9-slim
@@ -113,3 +115,11 @@ docker run --rm -it \
   --device /dev/dri \
   baxter-simulation
 ```
+
+
+## Simulación del robot ATLAS en Docker
+
+En este apartado se busca simular el robot humanoide ATLAS, reconocido por sus capacidades de locomoción y manipulación avanzada. La simulación se realiza en PyBullet para observar sus movimientos y estabilidad, corriendo igualmente dentro de un entorno Dockerizado.
+
+## Objetivo:
+Implementar y ejecutar un contenedor Docker que permita la simulación del robot ATLAS en PyBullet, analizando su comportamiento dinámico y la interacción con el entorno virtual.
