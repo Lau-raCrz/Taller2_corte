@@ -114,3 +114,50 @@ docker run --rm -it \
   --device /dev/dri \
   baxter-simulation
 ```
+
+---
+
+## 🦿 **Atlas Robot (PyBullet)**
+
+```markdown
+### 🦿 Atlas Robot (PyBullet)
+
+El **robot Atlas** fue implementado utilizando PyBullet con Python 3.10, permitiendo simulaciones físicas realistas con renderizado 3D.  
+El contenedor incluye todas las dependencias necesarias para ejecutar el archivo `atlas.py` de forma automática.
+
+```dockerfile
+# Dockerfile para Atlas (PyBullet)
+FROM python:3.10-slim
+
+RUN apt-get update && apt-get install -y \
+    python3-opengl \
+    xvfb \
+    ffmpeg \
+    libgl1 \
+    libglu1-mesa \
+    libglib2.0-0 \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir \
+    numpy \
+    pybullet \
+    matplotlib
+
+WORKDIR /app
+COPY . /app
+
+CMD ["python3", "atlas.py"]
+# Construir la imagen
+sudo docker build -t atlas_pybullet .
+
+# Habilitar entorno gráfico
+xhost +local:docker
+
+# Ejecutar el contenedor
+sudo docker run --rm -it \
+  -e DISPLAY=$DISPLAY \
+  -e LIBGL_ALWAYS_SOFTWARE=1 \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  atlas_pybullet
+
